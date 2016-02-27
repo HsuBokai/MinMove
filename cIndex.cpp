@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "cindex.h"
+#include "cIndex.h"
 
 using namespace std;
 
@@ -9,7 +9,7 @@ CIndex::CIndex(const int n, const int m):_index(0), _max(0){
 		cerr << "Error!! n < m\n";
 		return;
 	}
-	if(n > sizeof(int)*8-1) {
+	if((unsigned)n > sizeof(int)*8-1) {
 		cerr << "Error!! n too large\n";
 		return;
 	}

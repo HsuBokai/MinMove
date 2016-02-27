@@ -1,6 +1,9 @@
-#include <iostream>
 #include <vector>
+
+#include <stdio.h> // sscanf
 #include <fcntl.h> // open
+#include <unistd.h> // close read
+
 #include "cIndex.h"
 
 using namespace std;
@@ -52,9 +55,10 @@ int minMove(const vector< vector<int> >& matrix) {
 		int option = table[(int)(ci_m)] + sum;
 		if(option > total_max) total_max = option;
 	}
-	//cout << "total_max = " << total_max << '\n';
 	delete [] column_max;
 	delete [] table;
+	fprintf(stdout, "total_sum = %d\n", total_sum);
+	fprintf(stdout, "total_max = %d\n", total_max);
 	return total_sum - total_max;
 }
 
@@ -65,7 +69,7 @@ int main(int argc, char* argv[]){
 		fprintf(stderr, "%s < boxes.data >\n", argv[0]);
 		return -1;
 	}
-	int fd = open(argv[1], O_RDONLY, S_IREAD);
+	int fd = open(argv[1], O_RDONLY, 0666);
 	if(fd < 0){
 		fprintf(stderr, "%s file not found\n", argv[1]);
 		return -1;
@@ -100,6 +104,6 @@ int main(int argc, char* argv[]){
 		fprintf(stderr, "close file %s fail\n", argv[1]);
 		return -1;
 	}
-	cout << "minMove = " << minMove(matrix) << '\n';
+	fprintf(stdout, "minMove = %d\n", minMove(matrix));
 	return 0;
 }
